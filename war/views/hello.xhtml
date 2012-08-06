@@ -1,0 +1,18 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/layout/_template.xhtml"
+	xmlns:fb="http://ogp.me/ns/fb#">
+
+	<ui:define name="title">
+		<h:outputText value="#{bundle['layout.title']}" />
+	</ui:define>
+	<ui:define name="content">
+		<p:layout id="layout" position="center"
+			style="width:900px;height:600px;margin: 15px;">
+			<p:layoutUnit position="center">
+			</p:layoutUnit>
+		</p:layout>
+	</ui:define>
+</ui:composition>

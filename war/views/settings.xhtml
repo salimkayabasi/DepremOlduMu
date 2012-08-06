@@ -1,0 +1,51 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/layout/_template.xhtml" xmlns:fb="http://ogp.me/ns/fb#">
+
+	<ui:define name="title">
+		<h:outputText value="#{bundle['layout.title']}" />
+	</ui:define>
+	<ui:define name="content">
+		<h:form>
+
+			<p:layout
+				style="min-width:400px;min-height:400px;padding-top:75px;padding-bottom:75px;"
+				id="layout">
+				<p:layoutUnit position="center" style="padding:15px;">
+
+					<h3
+						style="font-family: Handlee-Regular; margin-left: auto; margin-right: auto; width: 50%;">
+						Shopper.com/
+						<p:inputText id="input" style="align:center;"
+							value="#{pg_Login.userName}">
+							<p:ajax event="keyup" update="messages"
+								listener="#{pg_Login.validateUserName}" />
+						</p:inputText>
+						<p:messages id="messages" showDetail="true" autoUpdate="true" />
+					</h3>
+
+					<br />
+					<br />
+					<div
+						style="font-family: Handlee-Regular; margin-left: auto; margin-right: auto; width: 40%;">
+						<p:commandLink id="btn_facebook"
+							actionListener="#{pg_Login.saveUser}"
+							style="margin-right:20px;">
+							<h:outputText value="#{bundle['login.loginWithFacebook']}" />
+						</p:commandLink>
+
+
+						<p:commandLink id="btn_twitter"
+							actionListener="#{pg_Login.saveUser}"
+							style="margin-right:20px;">
+							<h:outputText value="#{bundle['login.loginWithTwitter']}" />
+						</p:commandLink>
+					</div>
+				</p:layoutUnit>
+			</p:layout>
+		</h:form>
+
+	</ui:define>
+</ui:composition>

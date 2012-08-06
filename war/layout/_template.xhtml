@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:fb="http://ogp.me/ns/fb#">
+<h:head>
+	<title><ui:insert name="title">#{bundle['layout.title']}</ui:insert></title>
+	<ui:insert name="head">
+		<ui:include src="../layout/head/_scripts.xhtml" />
+		<ui:include src="../layout/head/_meta.xhtml" />
+		<ui:include src="../layout/head/_css.xhtml" />
+	</ui:insert>
+</h:head>
+<h:body>
+	<f:view>
+		<p:outputPanel id="body">
+			<div id="ust">
+				<ui:insert name="header">
+					<ui:include src="../layout/_header.xhtml" />
+				</ui:insert>
+			</div>
+			<div id="icerik">
+				<p:outputPanel id="content">
+					<ui:insert name="content">
+						<h:outputText value="Content" />
+					</ui:insert>
+				</p:outputPanel>
+			</div>
+			<div id="footer">
+				<ui:insert name="footer">
+					<ui:include src="../layout/_footer.xhtml" />
+				</ui:insert>
+			</div>
+		</p:outputPanel>
+	</f:view>
+	<ui:insert name="bodyBottom">
+
+	</ui:insert>
+	<ui:insert name="bodyBottomGnrl">
+		<ui:include src="../layout/head/scripts/_SocialConnect.xhtml" />
+	</ui:insert>
+</h:body>
+</html>

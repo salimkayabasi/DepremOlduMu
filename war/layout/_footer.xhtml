@@ -1,0 +1,24 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:fb="http://ogp.me/ns/fb#">
+	<div id="footer_center">
+		<div id="ft_center_top">
+			<div class="temizle"></div>
+		</div>
+		<div id="ft_center_btm">
+			<div id="btm_menu">
+				<h:form>
+					<h:commandLink action="main">
+						<h:graphicImage value="${pageContext.request.contextPath}/resources/images/shoppingbag.png"
+							width="200" />
+					</h:commandLink>
+				</h:form>
+			</div>
+			<div id="btm_fabelist"></div>
+			<div class="temizle"></div>
+		</div>
+	</div>
+</ui:composition>
+

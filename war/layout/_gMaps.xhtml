@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:fb="http://ogp.me/ns/fb#">
+	<div align="right">
+		<h:form id="rememberMyLocation">
+			<p:selectBooleanCheckbox value="#{userBean.rememberMyLocation}">
+				<p:ajax process="@this" />
+			</p:selectBooleanCheckbox>
+			<h:outputText value="Haritami hatirla" />
+			<h:inputHidden id="rememberMyLocation"
+				value="#{userBean.rememberMyLocation}" />
+		</h:form>
+	</div>
+	<center>
+		<p:gmap id="google_map_canvas" type="ROADMAP" mapTypeControl="false"
+			navigationControl="false" style="width:1000px;height:360px" center="36.890257,30.707417"
+			widgetVar="ShopperMap" model="#{userView.mapModel}" />
+	</center>
+</ui:composition>

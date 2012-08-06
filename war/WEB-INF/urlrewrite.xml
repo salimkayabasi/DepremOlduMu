@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.2//EN"
+        "http://tuckey.org/res/dtds/urlrewrite3.2.dtd">
+<!-- Configuration file for UrlRewriteFilter http://tuckey.org/urlrewrite/ -->
+<urlrewrite>
+	<rule>
+		<note>data kandilli</note>
+		<from>^/data/kandilli/$</from>
+		<to>/faces/views/kandilli.xhtml</to>
+	</rule>
+	<rule>
+		<note>homepage</note>
+		<from>^/$</from>
+		<to>/faces/views/hello.xhtml</to>
+	</rule>
+	<outbound-rule>
+		<from>^/faces/views/hello\.xhtml$</from>
+		<to>/</to>
+	</outbound-rule>
+</urlrewrite>

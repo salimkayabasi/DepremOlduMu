@@ -1,0 +1,101 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:fb="http://ogp.me/ns/fb#">
+
+<script type="text/javascript">
+/* <![CDATA[ */
+ 	jQuery(document).ready(function() {
+	try {      
+		var debug = true;
+		var latlng = new google.maps.LatLng(41.00527, 28.97696);
+		var mcOptions = {
+			gridSize : 50,
+			maxZoom : 15
+		};
+		var mapcanvas = document.getElementById('google_map_canvas');
+		var myOptions = {
+			zoom : 11,
+			center : latlng,
+			mapTypeControl : false,
+			navigationControlOptions : {
+				style : google.maps.NavigationControlStyle.DEFAULT
+			},
+			streetViewControl : false,
+			mapTypeId : google.maps.MapTypeId.ROADMAP
+		};
+
+		function setCookie() {
+			$.cookie('MyLat', myOptions.center.lat(), {path: '/'}); // Storing latitude value
+			$.cookie('MyLon', myOptions.center.lng(), {path: '/'}); // Storing longitude value
+			if (debug) {
+				console.log('MyLat  -> ' + myOptions.center.lat());
+				console.log('MyLon  -> ' + myOptions.center.lng());
+			}
+		}
+
+		function setEventListener() {
+			google.maps.event.addListener(ShopperMap, 'center_changed', function() {
+				myOptions.center = ShopperMap.getCenter();
+				setCookie();
+			});
+		}
+
+		function setMap() {
+			//ShopperMap = new google.maps.Map(mapcanvas, myOptions);
+			setEventListener();
+			setCookie();
+		}
+
+		function setManually() {
+			if ($.cookie('MyLat') && $.cookie('MyLon')) {
+				myOptions.center = new google.maps.LatLng($.cookie('MyLat'), $
+						.cookie('MyLon'));
+				if (debug)
+					console.log('Using Cookie');
+			}
+			setMap();
+		}
+
+		function success(position) {
+			var remember = document
+					.getElementById('rememberMyLocation:rememberMyLocation').value;
+			if (remember == "true") {
+				setManually();
+			} else {
+				myOptions.center = new google.maps.LatLng(
+						position.coords.latitude, position.coords.longitude);
+				setMap();
+			}
+		}
+
+		function error(error) {
+			if (debug)
+				console.log(error);
+				
+			if (error.code == error.PERMISSION_DENIED) {
+				if (debug)
+					console.log('Permission Denied by User');
+				setManually();
+			}
+		}
+		function run() {
+
+			if (navigator.geolocation) {
+				navigator.geolocation.getCurrentPosition(success, error);
+			} else {
+				if (debug)
+					console.log('Location Is Set To Default -> Istanbul');
+				setManually();
+			}
+		}
+		run();
+	 } catch(e) {
+         alert("Error: "+e.message);
+ }
+});
+		
+                                  /* ]]> */
+</script>
+</ui:composition>

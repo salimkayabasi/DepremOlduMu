@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/layout/_template.xhtml" xmlns:fb="http://ogp.me/ns/fb#">
+
+	<ui:define name="title">
+		<h:outputText value="#{bundle['layout.title']}" />
+	</ui:define>
+	<ui:define name="content">
+
+
+		<p:dialog widgetVar="dlg" effect="FADE" effectDuration="0.5"
+			close="false" fixedCenter="true">
+			<h:form prependId="false">
+				<h:panelGrid columns="2">
+					<h:outputLabel for="title" value="Title:" />
+					<p:inputText id="title" value="#{pg_StoreAdd.store.storeName}" />
+
+					<h:outputLabel for="urlName" value="urlName:" />
+					<p:inputText id="urlName" value="#{pg_StoreAdd.store.urlName}" />
+
+					<f:facet name="footer">
+						<p:commandButton value="Add"
+							actionListener="#{pg_StoreAdd.addStore}"
+							oncomplete="markerAddComplete()" />
+						<p:commandButton value="Cancel" onclick="return cancel()" />
+					</f:facet>
+				</h:panelGrid>
+
+				<h:inputHidden id="lat" value="#{pg_StoreAdd.store.lat}" />
+				<h:inputHidden id="lng" value="#{pg_StoreAdd.store.lng}" />
+
+			</h:form>
+		</p:dialog>
+	</ui:define>
+
+	<ui:define name="bodyBottom">
+		<script type="text/javascript">
+		/* <![CDATA[ */
+			jQuery(document)
+					.ready(
+							function() {
+								try {
+									var currentMarker = null;
+
+									function handlePointClick(event) {
+
+										console.log('oldu');
+										if (currentMarker == null) {
+											document.getElementById('lat').value = event.latLng
+													.lat();
+											document.getElementById('lng').value = event.latLng
+													.lng();
+
+											currentMarker = new google.maps.Marker(
+													{
+														position : new google.maps.LatLng(
+																event.latLng
+																		.lat(),
+																event.latLng
+																		.lng())
+													});
+										}
+
+										currentMarker.setMap(ShopperMap);
+
+										dlg.show();
+									}
+
+									function markerAddComplete() {
+										var title = document
+												.getElementById('title');
+										currentMarker.setTitle(title.value);
+										title.value = "";
+										urlName.value = "";
+										currentMarker = null;
+										dlg.hide();
+									}
+
+									function cancel() {
+										dlg.hide();
+										currentMarker.setMap(null);
+										currentMarker = null;
+										return false;
+									}
+
+									google.maps.event.addListener(ShopperMap,
+											'click', function(event) {
+												handlePointClick(event);
+											});
+
+								} catch (e) {
+									alert("Error: " + e.message);
+								}
+							});
+			/* ]]> */
+		</script>
+	</ui:define>
+</ui:composition>

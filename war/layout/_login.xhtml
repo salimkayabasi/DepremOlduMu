@@ -1,0 +1,31 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:fb="http://ogp.me/ns/fb#">
+
+	<h:form id="formTW">
+		<p:remoteCommand name="lazyloadTW" process="@this"
+			actionListener="#{userBean.LoginWithTW}" />
+	</h:form>
+	<h:form id="formFB">
+		<p:remoteCommand name="lazyloadFB" process="@this"
+			actionListener="#{userBean.LoginWithFB}" />
+	</h:form>
+	<h:form id="formOut">
+		<p:remoteCommand name="lazyloadLogOut" process="@this"
+			actionListener="#{userBean.LogOut}" />
+	</h:form>
+	<div id="auth-status" style="color: white; float: right; margin: 5px;">
+		<div id="auth-loggedin" style="display: none">
+			<img id="auth-img" src="#{userBean.user.picUrl}" /><span
+				id="auth-displayname">#{userBean.user.fullName}</span> <a
+				style="color: white;" href="#" id="auth-logoutlink">#{bundle['login.panelLogout']}</a>
+		</div>
+		<span id="twitter-connect-placeholder"></span> <span
+			id="facebook-connect-placeholder"><fb:login-button
+				scope="user_about_me,user_birthday,user_location,email">#{bundle['login.loginWithFacebook']}</fb:login-button>
+		</span>
+	</div>
+
+</ui:composition>

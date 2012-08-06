@@ -1,0 +1,108 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" xmlns:fb="http://ogp.me/ns/fb#">
+
+	<div id="fb-root"></div>
+	<script type="text/javascript">
+	/* <![CDATA[ */
+		window.fbAsyncInit = function() {
+			FB.init({
+				appId : appID,
+				status : true,
+				cookie : true,
+				xfbml : true,
+				oauth : true
+			});
+			
+			// listen for and handle auth.statusChange events
+			FB.Event.subscribe('auth.statusChange', function(response) {
+
+								if (response.authResponse) {
+									// user has auth'd your app and is logged into Facebook
+									
+									document.getElementById('auth-loggedin').style.display = 'block';
+									 FB.api('/me', function(me){
+										 lazyloadFB({FBUSER:JSON.stringify(me)});
+										 console.log(me);
+										
+							              /* if (me.name) {
+							                document.getElementById('auth-displayname').innerHTML = me.name;
+											document.getElementById('auth-img').src = 'http://graph.facebook.com/'+me.id+'/picture';
+							              } */
+							            })
+									
+									 var myFacebookNode = document
+										.getElementById('facebook-connect-placeholder');
+									 myFacebookNode.innerHTML = '';
+									
+									
+
+								} else {
+									
+									 var myFacebookNode = document
+										.getElementById('facebook-connect-placeholder');
+									 myFacebookNode.innerHTML = '<fb:login-button scope ="user_about_me,user_birthday,user_location,email">#{bundle["login.loginWithFacebook"]}</fb:login-button>';
+									 document.getElementById('auth-loggedin').style.display = 'none';
+								}
+								
+							});
+
+			document.getElementById('auth-logoutlink').addEventListener(
+					'click', function() {
+						twttr.anywhere.signOut();
+						FB.logout();
+						TWCheckLoginStatus();
+						lazyloadLogOut();
+					});
+			TWCheckLoginStatus();
+		};
+		(function(d) {
+			var js, id = 'facebook-jssdk';
+			if (d.getElementById(id)) {
+				return;
+			}
+			js = d.createElement('script');
+			js.id = id;
+			js.async = true;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			d.getElementsByTagName('head')[0].appendChild(js);
+		}(document));
+
+		function TWCheckLoginStatus() {
+
+			twttr.anywhere(function(T) {
+				var currentUser, screenName, profileImage, profileImageTag;
+				var myTwitterNode = document
+						.getElementById('twitter-connect-placeholder');
+				myTwitterNode.innerHTML = '';
+				if (T.isConnected()) {
+					currentUser = T.currentUser;
+/* 					document.getElementById('auth-displayname').innerText= currentUser.data('name');
+					document.getElementById('auth-img').src = currentUser.data('profile_image_url'); */
+					document.getElementById('auth-loggedin').style.display = 'block';
+					lazyloadTW({TWUSER:JSON.stringify(T.currentUser.data())});
+					 console.log(T.currentUser.data());
+				} else {
+					T("#twitter-connect-placeholder").connectButton();
+
+					T.bind("authComplete", function(e, user) {
+						// triggered when auth completed successfully
+						myTwitterNode.innerHTML = '';
+						location.reload();
+					});
+
+					T.bind("signOut", function(e) {
+						// triggered when user logs out
+						location.reload();
+					});
+
+				}
+			});
+
+		}
+
+		/* ]]> */
+	</script>
+</ui:composition>

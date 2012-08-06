@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/layout/_template.xhtml"  xmlns:fb="http://ogp.me/ns/fb#">
+
+	<ui:define name="title">
+		<h:outputText value="#{bundle['layout.title']}" />
+	</ui:define>
+	<ui:define name="content">
+		<p:notificationBar position="top" effect="slide"
+			widgetVar="notificationbar" styleClass="top">
+			<h:outputText value="Basarili" style="color:#FFCC00;font-size:36px;" />
+		</p:notificationBar>
+		<h:form>
+
+			<p:panel id="panel" header="New Store">
+				<p:messages id="msgs" />
+
+				<h:panelGrid columns="3">
+					<h:outputLabel for="kindName" value="KindName: " />
+					<p:inputText id="kindName" value="#{pg_Login.urlKind.kindName}"
+						required="true" label="KindName">
+					</p:inputText>
+					<br />
+					<h:outputLabel for="urlName" value="UrlName: " />
+					<p:inputText id="urlName" value="#{pg_Login.urlKind.urlName}"
+						required="true" label="UrlName">
+					</p:inputText>
+					<br />
+					<p:selectOneMenu value="#{pg_Login.selectedType}"
+						effectSpeed="fast" effect="puff">
+						<f:selectItems value="#{pg_Login.lstComboBox}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+				<p:commandButton id="btn" value="Join" update="panel"
+					actionListener="#{pg_Login.saveEntity}" />
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

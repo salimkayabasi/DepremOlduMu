@@ -1,0 +1,15 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui" template="/layout/_template.xhtml" xmlns:fb="http://ogp.me/ns/fb#">
+
+	<ui:define name="title">
+		<h:outputText value="#{bundle['layout.title']}" />
+	</ui:define>
+	<ui:define name="content">
+		<h1>#{bundle['error.title']}</h1>
+		<h3>#{pg_Error.errorMsg}</h3>
+		<h3>hello my friend would you like to <a href="/">join</a></h3>
+	</ui:define>
+</ui:composition>
